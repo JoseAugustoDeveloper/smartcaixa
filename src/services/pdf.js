@@ -48,3 +48,47 @@ export async function imprimirCupom() {
   janela.print();
   janela.close();
 }
+
+export async function gerarCupomPDF(
+    idElemento,
+    nomeArquivo = "cupom-fechamento.pdf"
+){
+
+    const elemento = document.getElementById(idElemento);
+
+    if(!elemento){
+        alert("Cupom não encontrado.");
+        return;
+    }
+
+    const canvas = await html2canvas(elemento,{
+        scale:2,
+        useCORS:true
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    // largura de uma bobina de 80mm
+    const largura = 80;
+
+    // altura proporcional
+    const altura =
+        (canvas.height * largura) / canvas.width;
+
+    const pdf = new jsPDF({
+        orientation:"portrait",
+        unit:"mm",
+        format:[largura, altura]
+    });
+
+    pdf.addImage(
+        imgData,
+        "PNG",
+        0,
+        0,
+        largura,
+        altura
+    );
+
+    pdf.save(nomeArquivo);
+}

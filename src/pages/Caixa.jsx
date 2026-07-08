@@ -16,7 +16,11 @@ import MainLayout from "../layout/MainLayout";
 import RelatorioA4 from "../components/relatorios/RelatorioA4";
 import RelatorioCupom from "../components/relatorios/RelatorioCupom";
 
-import { gerarPDF, imprimirCupom } from "../services/pdf";
+import {
+    gerarPDF,
+    imprimirCupom,
+    gerarCupomPDF
+} from "../services/pdf";
 
 import useMobile from "../hooks/useMobile";
 import TabelaCartoesMobile from "../components/TabelaCartoesMobile";
@@ -68,10 +72,19 @@ function Caixa() {
   });
 
   const isMobile = useMobile();
-  
+
   async function gerarRelatorio() {
     await gerarPDF("relatorio-pdf");
   }
+
+  async function gerarCupom(){
+
+    await gerarCupomPDF(
+        "relatorio-cupom"
+    );
+
+}
+
   function alterarMovimentacao(nome, valor) {
     setValores((old) => ({
       ...old,
@@ -161,9 +174,21 @@ function Caixa() {
       ),
     }));
   }
-  function imprimir() {
-    imprimirCupom();
-  }
+async function imprimir(){
+
+    if(isMobile){
+
+        await gerarCupomPDF(
+            "relatorio-cupom"
+        );
+
+    }else{
+
+        imprimirCupom();
+
+    }
+
+}
 
   const resumo = calcularResumo(valores);
   useEffect(() => {
