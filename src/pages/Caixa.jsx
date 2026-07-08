@@ -18,6 +18,10 @@ import RelatorioCupom from "../components/relatorios/RelatorioCupom";
 
 import { gerarPDF, imprimirCupom } from "../services/pdf";
 
+import useMobile from "../hooks/useMobile";
+import TabelaCartoesMobile from "../components/TabelaCartoesMobile";
+
+
 const estadoInicial = {
   maquinas: [
     {
@@ -39,17 +43,17 @@ const estadoInicial = {
     },
   ],
 
-movimentacao: {
-  pixSicoob: "",
-  notas: "",
-  valeCard: "",
-  punto: "",
-  transferencias: "",
-  sangrias: "",
-  despesas: "",
-  vales: "",
-  credito: "",
-},
+  movimentacao: {
+    pixSicoob: "",
+    notas: "",
+    valeCard: "",
+    punto: "",
+    transferencias: "",
+    sangrias: "",
+    despesas: "",
+    vales: "",
+    credito: "",
+  },
 
   saidas: {
     produtos: "",
@@ -62,6 +66,9 @@ function Caixa() {
   const [valores, setValores] = useState(() => {
     return carregarCaixa() || estadoInicial;
   });
+
+  const isMobile = useMobile();
+  
   async function gerarRelatorio() {
     await gerarPDF("relatorio-pdf");
   }
@@ -170,14 +177,21 @@ function Caixa() {
         <Toolbar onGerarPDF={gerarRelatorio} onCupom={imprimir} />
 
         <div className="grid">
-          <TabelaCartoes
-            maquinas={valores.maquinas}
-            alterarCartao={alterarCartao}
-            adicionarMaquina={adicionarMaquina}
-            removerMaquina={removerMaquina}
-            alterarNomeMaquina={alterarNomeMaquina}
-          />
-
+          {isMobile ? (
+            <TabelaCartoesMobile
+              maquinas={valores.maquinas}
+              alterarCartao={alterarCartao}
+              alterarNomeMaquina={alterarNomeMaquina}
+            />
+          ) : (
+            <TabelaCartoes
+              maquinas={valores.maquinas}
+              alterarCartao={alterarCartao}
+              adicionarMaquina={adicionarMaquina}
+              removerMaquina={removerMaquina}
+              alterarNomeMaquina={alterarNomeMaquina}
+            />
+          )}
           <Section
             titulo="Movimentação"
             campos={outrosValores}
