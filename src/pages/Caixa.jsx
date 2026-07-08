@@ -39,13 +39,17 @@ const estadoInicial = {
     },
   ],
 
-  movimentacao: {
-    transferencias: "",
-    credito: "",
-    sangrias: "",
-    despesas: "",
-    vales: "",
-  },
+movimentacao: {
+  pixSicoob: "",
+  notas: "",
+  valeCard: "",
+  punto: "",
+  transferencias: "",
+  sangrias: "",
+  despesas: "",
+  vales: "",
+  credito: "",
+},
 
   saidas: {
     produtos: "",

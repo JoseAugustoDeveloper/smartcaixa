@@ -12,15 +12,15 @@ export const entradasCartao = [
 ];
 
 export const outrosValores = [
-    { label: "PIX Sicoob", name: "pixSicoob" },
-    { label: "PIX Máquina", name: "pixMaq" },
-    { label: "Transferências", name: "transferencias" },
-
-    { label: "Sangrias", name: "sangrias" },
-    { label: "Despesas", name: "despesas" },
-    { label: "Vales", name: "vales" },
-
-    { label: "Crédito", name: "credito" }
+  { name: "pixSicoob", label: "PIX Sicoob" },
+  { name: "notas", label: "Notas" },
+  { name: "valeCard", label: "ValeCard" },
+  { name: "punto", label: "Punto" },
+  { name: "transferencias", label: "Transferências" },
+  { name: "sangrias", label: "Sangrias" },
+  { name: "despesas", label: "Despesas" },
+  { name: "vales", label: "Vales" },
+  { name: "credito", label: "Crédito" },
 ];
 
 export const saidas = [

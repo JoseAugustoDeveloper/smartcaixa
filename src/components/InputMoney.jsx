@@ -1,25 +1,24 @@
-import { formatarMoeda, limparMoeda } from "../utils/moeda";
+import { NumericFormat } from "react-number-format";
 
 function InputMoney({ label, name, values, onChange }) {
-  const valor = values[name] || "";
-
-  function handleChange(e) {
-    const somenteNumeros = limparMoeda(e.target.value);
-
-    onChange(name, somenteNumeros);
-  }
-
   return (
     <div className="linha">
-
       <label>{label}</label>
 
-      <input
-        type="text"
-        value={formatarMoeda(valor || 0)}
-        onChange={handleChange}
+      <NumericFormat
+        value={values[name] ?? ""}
+        thousandSeparator="."
+        decimalSeparator=","
+        decimalScale={2}
+        fixedDecimalScale
+        allowNegative={false}
+        prefix="R$ "
+        placeholder="R$ 0,00"
+        className="input-money"
+        onValueChange={(values) => {
+          onChange(name, values.floatValue ?? "");
+        }}
       />
-
     </div>
   );
 }

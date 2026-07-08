@@ -27,7 +27,7 @@ export async function gerarPDF(idElemento, nomeArquivo = "fechamento-caixa.pdf")
 }
 
 export async function imprimirCupom() {
-  const conteudo = document.getElementById("relatorio-cupom").innerHTML;
+  const conteudo = document.getElementById("cupom-impressao").innerHTML;
 
   const janela = window.open("", "", "width=350,height=700");
 
