@@ -28,7 +28,7 @@ export default function RelatorioCupom({ valores }) {
     maquinas.reduce((total, maquina) => total + Number(maquina[campo] || 0), 0);
 
   return (
-    <div id="cupom-impressao">
+    <div id="relatorio-cupom">
       <Bloco titulo="VISA DÉBITO" valor={soma("visaDebito")} />
 
       <Bloco titulo="VISA CRÉDITO" valor={soma("visaCredito")} />
