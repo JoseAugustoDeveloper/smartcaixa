@@ -15,22 +15,22 @@ function Linha({ titulo, valor }) {
       style={{
         display: "flex",
         fontFamily: "Courier New, monospace",
-        fontSize: "10px",
-        lineHeight: "12px",
+        fontSize: "8px",
+        lineHeight: "10px",
         whiteSpace: "pre",
       }}
     >
-      <span style={{ width: "80px" }}>
+      <span style={{ width: "70px" }}>
         {titulo.padEnd(12, ".")}
       </span>
 
-      <span style={{ width: "50px", textAlign: "center" }}>
+      <span style={{ width: "42px", textAlign: "center" }}>
         {data}
       </span>
 
       <span
         style={{
-          width: "60px",
+          width: "52px",
           textAlign: "right",
           fontWeight: "bold",
         }}
@@ -54,7 +54,7 @@ export default function RelatorioCupom({ valores }) {
     <div
       id="relatorio-cupom"
       style={{
-        width: "420px",
+        width: "290px",
         padding: "6px",
         fontFamily: "Courier New, monospace",
       }}

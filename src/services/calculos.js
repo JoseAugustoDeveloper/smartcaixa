@@ -9,9 +9,9 @@ export function calcularResumo(valores) {
   const totalDebito = maquinas.reduce(
     (total, maq) =>
       total +
-      numero(maq.eloDebito) +
-      numero(maq.masterDebito) +
-      numero(maq.visaDebito),
+      numero(maq.EloDebito) +
+      numero(maq.MasterDebito) +
+      numero(maq.VisaDebito),
     0
   );
 
@@ -19,9 +19,9 @@ export function calcularResumo(valores) {
   const totalCredito = maquinas.reduce(
     (total, maq) =>
       total +
-      numero(maq.eloCredito) +
-      numero(maq.masterCredito) +
-      numero(maq.visaCredito) +
+      numero(maq.EloCredito) +
+      numero(maq.MasterCredito) +
+      numero(maq.VisaCredito) +
       numero(maq.amex),
     0
   );
