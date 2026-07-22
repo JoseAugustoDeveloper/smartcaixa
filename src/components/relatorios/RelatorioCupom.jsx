@@ -52,7 +52,7 @@ export default function RelatorioCupom({ valores }) {
 
   return (
     <div
-      id="cupom-impressao"
+      id="relatorio-cupom"
       style={{
         width: "280px",
         padding: "6px",
