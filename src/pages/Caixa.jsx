@@ -168,11 +168,7 @@ function Caixa() {
     }));
   }
   async function imprimir() {
-    if (isMobile) {
-      await gerarCupomPDF("relatorio-cupom");
-    } else {
-      imprimirCupom();
-    }
+    await gerarCupomPDF(valores);
   }
 
   const resumo = calcularResumo(valores);
