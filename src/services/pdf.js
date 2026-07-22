@@ -50,45 +50,47 @@ export async function imprimirCupom() {
 }
 
 export async function gerarCupomPDF(
-    idElemento,
-    nomeArquivo = "cupom-fechamento.pdf"
-){
+  idElemento,
+  nomeArquivo = "cupom-fechamento.pdf"
+) {
 
-    const elemento = document.getElementById(idElemento);
+  const elemento = document.getElementById(idElemento);
 
-    if(!elemento){
-        alert("Cupom não encontrado.");
-        return;
-    }
+  if (!elemento) {
+    alert("Cupom não encontrado.");
+    return;
+  }
 
-    const canvas = await html2canvas(elemento,{
-        scale:2,
-        useCORS:true
-    });
+  const canvas = await html2canvas(elemento, {
+    scale: 2,
+    useCORS: true
+  });
 
-    const imgData = canvas.toDataURL("image/png");
+  const imgData = canvas.toDataURL("image/png");
 
-    // largura de uma bobina de 80mm
-    const largura = 80;
+  // largura de uma bobina de 80mm
+  const largura = 80;
 
-    // altura proporcional
-    const altura =
-        (canvas.height * largura) / canvas.width;
+  // altura proporcional
+  const largura = 100; // aumente para 100 mm
 
-    const pdf = new jsPDF({
-        orientation:"portrait",
-        unit:"mm",
-        format:[largura, altura]
-    });
+  const altura =
+    (canvas.height * largura) / canvas.width;
 
-    pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        0,
-        largura,
-        altura
-    );
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: [largura, altura]
+  });
 
-    pdf.save(nomeArquivo);
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    0,
+    largura,
+    altura
+  );
+
+  pdf.save(nomeArquivo);
 }
