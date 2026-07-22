@@ -68,8 +68,6 @@ export async function gerarCupomPDF(
 
   const imgData = canvas.toDataURL("image/png");
 
-  // largura de uma bobina de 80mm
-  const largura = 80;
 
   // altura proporcional
   const largura = 120;
