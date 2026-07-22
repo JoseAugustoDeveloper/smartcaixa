@@ -20,7 +20,7 @@ function Linha({ titulo, valor }) {
         whiteSpace: "pre",
       }}
     >
-      <span style={{ width: "70px" }}>
+      <span style={{ width: "60px" }}>
         {titulo.padEnd(12, ".")}
       </span>
 
