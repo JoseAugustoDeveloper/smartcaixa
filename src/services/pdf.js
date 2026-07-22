@@ -70,7 +70,7 @@ export async function gerarCupomPDF(
 
 
   // altura proporcional
-  const largura = 120;
+  const largura = 300;
 
   const altura =
     (canvas.height * largura) / canvas.width;
