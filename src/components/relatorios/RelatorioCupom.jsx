@@ -54,7 +54,7 @@ export default function RelatorioCupom({ valores }) {
     <div
       id="relatorio-cupom"
       style={{
-        width: "290px",
+        width: "340px",
         padding: "6px",
         fontFamily: "Courier New, monospace",
       }}
