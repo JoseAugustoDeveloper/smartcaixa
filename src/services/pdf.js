@@ -26,138 +26,138 @@ export async function gerarPDF(idElemento, nomeArquivo = "fechamento-caixa.pdf")
   pdf.save(nomeArquivo);
 }
 
-// export async function imprimirCupom() {
-//   const conteudo = document.getElementById("cupom-impressao").innerHTML;
+export async function imprimirCupom() {
+  const conteudo = document.getElementById("cupom-impressao").innerHTML;
 
-//   const janela = window.open("", "", "width=350,height=700");
+  const janela = window.open("", "", "width=350,height=700");
 
-//   janela.document.write(`
-//     <html>
-//       <head>
-//         <title>Cupom</title>
-//       </head>
+  janela.document.write(`
+    <html>
+      <head>
+        <title>Cupom</title>
+      </head>
 
-//       <body>
-//         ${conteudo}
-//       </body>
-//     </html>
-//   `);
+      <body>
+        ${conteudo}
+      </body>
+    </html>
+  `);
 
-//   janela.document.close();
-//   janela.focus();
-//   janela.print();
-//   janela.close();
-// }
-
-// export async function gerarCupomPDF(
-//   idElemento,
-//   nomeArquivo = "cupom-fechamento.pdf"
-// ) {
-
-//   const elemento = document.getElementById(idElemento);
-
-//   if (!elemento) {
-//     alert("Cupom não encontrado.");
-//     return;
-//   }
-
-//   const canvas = await html2canvas(elemento, {
-//     scale: 2,
-//     useCORS: true
-//   });
-
-//   const imgData = canvas.toDataURL("image/png");
-
-
-//   // altura proporcional
-//   const largura = 120;
-
-//   const altura =
-//     (canvas.height * largura) / canvas.width;
-
-//   const pdf = new jsPDF({
-//     orientation: "portrait",
-//     unit: "mm",
-//     format: [largura, altura]
-//   });
-
-//   pdf.addImage(
-//     imgData,
-//     "PNG",
-//     0,
-//     0,
-//     largura,
-//     altura
-//   );
-
-//   pdf.save(nomeArquivo);
-// }
-
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
-
-function numero(valor) {
-  return Number(valor || 0);
+  janela.document.close();
+  janela.focus();
+  janela.print();
+  janela.close();
 }
 
-function moeda(valor) {
-  return valor.toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-}
+export async function gerarCupomPDF(
+  idElemento,
+  nomeArquivo = "cupom-fechamento.pdf"
+) {
 
-function escreverLinha(pdf, y, nome, valor) {
-  if (numero(valor) === 0) return y;
+  const elemento = document.getElementById(idElemento);
 
-  const data = new Date().toLocaleDateString("pt-BR");
+  if (!elemento) {
+    alert("Cupom não encontrado.");
+    return;
+  }
 
-  pdf.setFont("courier", "normal");
-  pdf.setFontSize(9);
-
-  pdf.text(nome, 5, y);
-
-  pdf.text(data, 42, y);
-
-  pdf.text(moeda(numero(valor)), 75, y, {
-    align: "right",
+  const canvas = await html2canvas(elemento, {
+    scale: 2,
+    useCORS: true
   });
 
-  return y + 5;
-}
+  const imgData = canvas.toDataURL("image/png");
 
-export async function gerarCupomPDF(valores) {
+
+  // altura proporcional
+  const largura = 120;
+
+  const altura =
+    (canvas.height * largura) / canvas.width;
 
   const pdf = new jsPDF({
     orientation: "portrait",
     unit: "mm",
-    format: [80, 220]
+    format: [largura, altura]
   });
 
-  let y = 8;
+  pdf.addImage(
+    imgData,
+    "PNG",
+    0,
+    0,
+    largura,
+    altura
+  );
 
-  const maquinas = valores.maquinas;
+  pdf.save(nomeArquivo);
+}
 
-  const soma = (campo) =>
-    maquinas.reduce(
-      (total, maq) => total + numero(maq[campo]),
-      0
-    );
+// import html2canvas from "html2canvas";
+// import jsPDF from "jspdf";
 
-  y = escreverLinha(pdf, y, "ELO DÉBITO", soma("eloDebito"));
+// function numero(valor) {
+//   return Number(valor || 0);
+// }
 
-  y = escreverLinha(pdf, y, "MASTER DÉBITO", soma("masterDebito"));
+// function moeda(valor) {
+//   return valor.toLocaleString("pt-BR", {
+//     minimumFractionDigits: 2,
+//     maximumFractionDigits: 2,
+//   });
+// }
 
-  y = escreverLinha(pdf, y, "VISA DÉBITO", soma("visaDebito"));
+// function escreverLinha(pdf, y, nome, valor) {
+//   if (numero(valor) === 0) return y;
 
-  y = escreverLinha(pdf, y, "ELO CRÉDITO", soma("eloCredito"));
+//   const data = new Date().toLocaleDateString("pt-BR");
 
-  y = escreverLinha(pdf, y, "MASTER CRÉDITO", soma("masterCredito"));
+//   pdf.setFont("courier", "normal");
+//   pdf.setFontSize(9);
 
-  y = escreverLinha(pdf, y, "VISA CRÉDITO", soma("visaCredito"));
+//   pdf.text(nome, 5, y);
 
-  y = escreverLinha(pdf, y, "AMEX", soma("amex"));
+//   pdf.text(data, 42, y);
 
-  y = escreverLinha(pdf, y, "PIX", soma("pix"));
+//   pdf.text(moeda(numero(valor)), 75, y, {
+//     align: "right",
+//   });
 
-  y += 3;}
+//   return y + 5;
+// }
+
+// export async function gerarCupomPDF(valores) {
+
+//   const pdf = new jsPDF({
+//     orientation: "portrait",
+//     unit: "mm",
+//     format: [80, 220]
+//   });
+
+//   let y = 8;
+
+//   const maquinas = valores.maquinas;
+
+//   const soma = (campo) =>
+//     maquinas.reduce(
+//       (total, maq) => total + numero(maq[campo]),
+//       0
+//     );
+
+//   y = escreverLinha(pdf, y, "ELO DÉBITO", soma("eloDebito"));
+
+//   y = escreverLinha(pdf, y, "MASTER DÉBITO", soma("masterDebito"));
+
+//   y = escreverLinha(pdf, y, "VISA DÉBITO", soma("visaDebito"));
+
+//   y = escreverLinha(pdf, y, "ELO CRÉDITO", soma("eloCredito"));
+
+//   y = escreverLinha(pdf, y, "MASTER CRÉDITO", soma("masterCredito"));
+
+//   y = escreverLinha(pdf, y, "VISA CRÉDITO", soma("visaCredito"));
+
+//   y = escreverLinha(pdf, y, "AMEX", soma("amex"));
+
+//   y = escreverLinha(pdf, y, "PIX", soma("pix"));
+
+//   y += 3;}
