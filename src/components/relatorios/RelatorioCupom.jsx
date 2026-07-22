@@ -15,7 +15,7 @@ function Linha({ titulo, valor }) {
       style={{
         display: "flex",
         fontFamily: "Courier New, monospace",
-        fontSize: "8px",
+        fontSize: "7px",
         lineHeight: "10px",
         whiteSpace: "pre",
       }}
@@ -59,13 +59,13 @@ export default function RelatorioCupom({ valores }) {
         fontFamily: "Courier New, monospace",
       }}
     >
-      <Linha titulo="ELO DÉBITO" valor={soma("eloDebito")} />
-      <Linha titulo="MASTER DÉBITO" valor={soma("masterDebito")} />
-      <Linha titulo="VISA DÉBITO" valor={soma("visaDebito")} />
+      <Linha titulo="ELO DÉBITO" valor={soma("EloDebito")} />
+      <Linha titulo="MASTER DÉBITO" valor={soma("MasterDebito")} />
+      <Linha titulo="VISA DÉBITO" valor={soma("VisaDebito")} />
 
-      <Linha titulo="ELO CRÉDITO" valor={soma("eloCredito")} />
-      <Linha titulo="MASTER CRÉDITO" valor={soma("masterCredito")} />
-      <Linha titulo="VISA CRÉDITO" valor={soma("visaCredito")} />
+      <Linha titulo="ELO CRÉDITO" valor={soma("EloCredito")} />
+      <Linha titulo="MASTER CRÉDITO" valor={soma("MasterCredito")} />
+      <Linha titulo="VISA CRÉDITO" valor={soma("VisaCredito")} />
 
       <Linha titulo="AMEX" valor={soma("amex")} />
       <Linha titulo="PIX" valor={soma("pix")} />
