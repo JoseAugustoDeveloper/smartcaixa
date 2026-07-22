@@ -18,17 +18,8 @@ function TabelaCartoesMobile({
           />
 
           <InputMoney
-            label="Visa Débito"
-            name="visaDebito"
-            values={maq}
-            onChange={(campo, valor) =>
-              alterarCartao(maq.id, campo, valor)
-            }
-          />
-
-          <InputMoney
-            label="Visa Crédito"
-            name="visaCredito"
+            label="Elo Débito"
+            name="eloDebito"
             values={maq}
             onChange={(campo, valor) =>
               alterarCartao(maq.id, campo, valor)
@@ -45,17 +36,8 @@ function TabelaCartoesMobile({
           />
 
           <InputMoney
-            label="Master Crédito"
-            name="masterCredito"
-            values={maq}
-            onChange={(campo, valor) =>
-              alterarCartao(maq.id, campo, valor)
-            }
-          />
-
-          <InputMoney
-            label="Elo Débito"
-            name="eloDebito"
+            label="Visa Débito"
+            name="visaDebito"
             values={maq}
             onChange={(campo, valor) =>
               alterarCartao(maq.id, campo, valor)
@@ -65,6 +47,24 @@ function TabelaCartoesMobile({
           <InputMoney
             label="Elo Crédito"
             name="eloCredito"
+            values={maq}
+            onChange={(campo, valor) =>
+              alterarCartao(maq.id, campo, valor)
+            }
+          />
+
+          <InputMoney
+            label="Master Crédito"
+            name="masterCredito"
+            values={maq}
+            onChange={(campo, valor) =>
+              alterarCartao(maq.id, campo, valor)
+            }
+          />
+
+          <InputMoney
+            label="Visa Crédito"
+            name="visaCredito"
             values={maq}
             onChange={(campo, valor) =>
               alterarCartao(maq.id, campo, valor)

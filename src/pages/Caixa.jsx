@@ -16,15 +16,10 @@ import MainLayout from "../layout/MainLayout";
 import RelatorioA4 from "../components/relatorios/RelatorioA4";
 import RelatorioCupom from "../components/relatorios/RelatorioCupom";
 
-import {
-    gerarPDF,
-    imprimirCupom,
-    gerarCupomPDF
-} from "../services/pdf";
+import { gerarPDF, imprimirCupom, gerarCupomPDF } from "../services/pdf";
 
 import useMobile from "../hooks/useMobile";
 import TabelaCartoesMobile from "../components/TabelaCartoesMobile";
-
 
 const estadoInicial = {
   maquinas: [
@@ -32,14 +27,14 @@ const estadoInicial = {
       id: 1,
       nome: "Máquina 1",
 
-      visaDebito: "",
-      visaCredito: "",
+      EloDebito: "",
+      EloCredito: "",
 
-      masterDebito: "",
-      masterCredito: "",
+      MasterDebito: "",
+      MasterCredito: "",
 
-      eloDebito: "",
-      eloCredito: "",
+      VisaDebito: "",
+      VisaCredito: "",
 
       amex: "",
 
@@ -48,15 +43,17 @@ const estadoInicial = {
   ],
 
   movimentacao: {
-    pixSicoob: "",
     notas: "",
-    valeCard: "",
-    punto: "",
     transferencias: "",
-    sangrias: "",
+    pixSicoob: "",
+    punto: "",
+    valeCard: "",
+    bamex: "",
+    desconto: "",
     despesas: "",
     vales: "",
     credito: "",
+    sangrias: "",
   },
 
   saidas: {
@@ -77,13 +74,9 @@ function Caixa() {
     await gerarPDF("relatorio-pdf");
   }
 
-  async function gerarCupom(){
-
-    await gerarCupomPDF(
-        "relatorio-cupom"
-    );
-
-}
+  async function gerarCupom() {
+    await gerarCupomPDF("relatorio-cupom");
+  }
 
   function alterarMovimentacao(nome, valor) {
     setValores((old) => ({
@@ -134,14 +127,14 @@ function Caixa() {
 
           nome: `Máquina ${old.maquinas.length + 1}`,
 
-          visaDebito: "",
-          visaCredito: "",
+          EloDebito: "",
+          EloCredito: "",
 
           masterDebito: "",
           masterCredito: "",
 
-          eloDebito: "",
-          eloCredito: "",
+          VisaDebito: "",
+          VisaCredito: "",
 
           amex: "",
 
@@ -174,21 +167,13 @@ function Caixa() {
       ),
     }));
   }
-async function imprimir(){
-
-    if(isMobile){
-
-        await gerarCupomPDF(
-            "relatorio-cupom"
-        );
-
-    }else{
-
-        imprimirCupom();
-
+  async function imprimir() {
+    if (isMobile) {
+      await gerarCupomPDF("relatorio-cupom");
+    } else {
+      imprimirCupom();
     }
-
-}
+  }
 
   const resumo = calcularResumo(valores);
   useEffect(() => {

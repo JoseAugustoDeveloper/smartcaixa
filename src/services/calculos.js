@@ -1,118 +1,113 @@
 function numero(valor) {
-    return Number(valor || 0);
+  return Number(valor || 0);
 }
 
 export function calcularResumo(valores) {
+  const maquinas = valores.maquinas || [];
 
-    const maquinas = valores.maquinas || [];
+  // Débito
+  const totalDebito = maquinas.reduce(
+    (total, maq) =>
+      total +
+      numero(maq.eloDebito) +
+      numero(maq.masterDebito) +
+      numero(maq.visaDebito),
+    0
+  );
 
-    // Totais dos cartões
-    const totalDebito = maquinas.reduce((total, maq) => {
+  // Crédito
+  const totalCredito = maquinas.reduce(
+    (total, maq) =>
+      total +
+      numero(maq.eloCredito) +
+      numero(maq.masterCredito) +
+      numero(maq.visaCredito) +
+      numero(maq.amex),
+    0
+  );
 
-        return total +
+  // PIX
+  const totalPix = maquinas.reduce(
+    (total, maq) => total + numero(maq.pix),
+    0
+  );
 
-            numero(maq.visaDebito) +
-            numero(maq.masterDebito) +
-            numero(maq.eloDebito);
+  const mov = valores.movimentacao || {};
 
-    }, 0);
+  const notas = numero(mov.notas);
+  const transferencias = numero(mov.transferencias);
+  const pixSicoob = numero(mov.pixSicoob);
+  const punto = numero(mov.punto);
+  const valeCard = numero(mov.valeCard);
+  const bamex = numero(mov.bamex);
+  const desconto = numero(mov.desconto);
+  const despesas = numero(mov.despesas);
+  const vales = numero(mov.vales);
+  const credito = numero(mov.credito);
+  const sangrias = numero(mov.sangrias);
 
-    const totalCredito = maquinas.reduce((total, maq) => {
+  // Entradas
+ const entradas =
+  totalDebito +
+  totalCredito +
+  totalPix +
+  notas +
+  transferencias +
+  pixSicoob +
+  punto +
+  valeCard +
+  bamex +
+  desconto +
+  despesas +
+  vales +
+  credito +
+  sangrias;
 
-        return total +
+  // Saídas
+  const saidasObj = valores.saidas || {};
 
-            numero(maq.visaCredito) +
-            numero(maq.masterCredito) +
-            numero(maq.eloCredito) +
-            numero(maq.amex);
+  const produtos = numero(saidasObj.produtos);
+  const combustivel = numero(saidasObj.combustivel);
+  const creditos = numero(saidasObj.creditos);
 
-    }, 0);
+  const saidas =
+    produtos +
+    combustivel +
+    creditos;
 
-    const totalPix = maquinas.reduce((total, maq) => {
+  const diferenca = entradas - saidas;
 
-        return total + numero(maq.pix);
+  let resultado = "Caixa Fechado";
 
-    }, 0);
+  if (diferenca > 0) resultado = "Sobra";
+  if (diferenca < 0) resultado = "Falta";
 
-    // Outros valores
-    const movimentacao = valores.movimentacao || {};
+  return {
+    totalDebito,
+    totalCredito,
+    totalPix,
 
-    const transferencias = numero(movimentacao.transferencias);
+    notas,
+    transferencias,
+    pixSicoob,
+    punto,
+    valeCard,
+    bamex,
+    desconto,
+    despesas,
+    vales,
+    credito,
+    sangrias,
 
-    const credito = numero(movimentacao.credito);
+    entradas,
 
-    const sangrias = numero(movimentacao.sangrias);
+    produtos,
+    combustivel,
+    creditos,
 
-    const despesas = numero(movimentacao.despesas);
+    saidas,
 
-    const vales = numero(movimentacao.vales);
-
-    // Entradas
-    const entradas =
-        totalDebito +
-        totalCredito +
-        totalPix +
-        transferencias +
-        credito +
-        despesas +
-        vales;
-
-    // Saídas
-    const saidasObj = valores.saidas || {};
-
-    const produtos = numero(saidasObj.produtos);
-
-    const combustivel = numero(saidasObj.combustivel);
-
-    const creditos = numero(saidasObj.creditos);
-
-    const saidas =
-        produtos +
-        combustivel +
-        creditos;
-
-    const diferenca = entradas - saidas;
-
-    let resultado = "Caixa Fechado";
-
-    if (diferenca > 0)
-        resultado = "Sobra";
-
-    if (diferenca < 0)
-        resultado = "Falta";
-
-    return {
-
-        totalDebito,
-
-        totalCredito,
-
-        totalPix,
-
-        transferencias,
-
-        credito,
-
-        sangrias,
-
-        despesas,
-
-        vales,
-
-        entradas,
-
-        produtos,
-
-        combustivel,
-
-        creditos,
-
-        saidas,
-
-        diferenca,
-
-        resultado
-
-    };
-
+    diferenca,
+    resultado,
+  };
 }

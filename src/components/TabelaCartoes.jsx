@@ -2,28 +2,28 @@ import { formatarMoeda } from "../utils/moeda";
 
 const bandeiras = [
   {
-    campo: "visaDebito",
-    nome: "Visa Débito"
-  },
-  {
-    campo: "visaCredito",
-    nome: "Visa Crédito"
-  },
-  {
-    campo: "masterDebito",
-    nome: "Master Débito"
-  },
-  {
-    campo: "masterCredito",
-    nome: "Master Crédito"
-  },
-  {
-    campo: "eloDebito",
+    campo: "EloDebito",
     nome: "Elo Débito"
   },
   {
-    campo: "eloCredito",
+    campo: "MasterDebito",
+    nome: "Master Débito"
+  },
+  {
+    campo: "VisaDebito",
+    nome: "Visa Débito"
+  },
+  {
+    campo: "EloCredito",
     nome: "Elo Crédito"
+  },
+  {
+    campo: "MasterCredito",
+    nome: "Master Crédito"
+  },
+  {
+    campo: "VisaCredito",
+    nome: "Visa Crédito"
   },
   {
     campo: "amex",

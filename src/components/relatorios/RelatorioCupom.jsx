@@ -1,22 +1,42 @@
-function Bloco({ titulo, valor }) {
+function Linha({ titulo, valor }) {
+  const numero = Number(valor || 0);
+
+  if (numero === 0) return null;
+
   const data = new Date().toLocaleDateString("pt-BR");
 
+  const valorFormatado = numero.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
-    <div className="bloco-cupom">
-      <div className="titulo">{titulo}</div>
+    <div
+      style={{
+        display: "flex",
+        fontFamily: "Courier New, monospace",
+        fontSize: "10px",
+        lineHeight: "12px",
+        whiteSpace: "pre",
+      }}
+    >
+      <span style={{ width: "95px" }}>
+        {titulo.padEnd(12, ".")}
+      </span>
 
-      <div className="data">Data: {data}</div>
+      <span style={{ width: "58px", textAlign: "center" }}>
+        {data}
+      </span>
 
-      <div className="valor">
-        R${" "}
-        {Number(valor || 0).toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-        })}
-      </div>
-
-      <div className="espaco"></div>
-
-      <div className="corte">----------------------------------------</div>
+      <span
+        style={{
+          width: "75px",
+          textAlign: "right",
+          fontWeight: "bold",
+        }}
+      >
+        {valorFormatado}
+      </span>
     </div>
   );
 }
@@ -25,49 +45,41 @@ export default function RelatorioCupom({ valores }) {
   const maquinas = valores.maquinas;
 
   const soma = (campo) =>
-    maquinas.reduce((total, maquina) => total + Number(maquina[campo] || 0), 0);
+    maquinas.reduce(
+      (total, maq) => total + Number(maq[campo] || 0),
+      0
+    );
 
   return (
-    <div id="relatorio-cupom">
-      <Bloco titulo="VISA DÉBITO" valor={soma("visaDebito")} />
+    <div
+      id="cupom-impressao"
+      style={{
+        width: "280px",
+        padding: "6px",
+        fontFamily: "Courier New, monospace",
+      }}
+    >
+      <Linha titulo="ELO DÉBITO" valor={soma("eloDebito")} />
+      <Linha titulo="MASTER DÉBITO" valor={soma("masterDebito")} />
+      <Linha titulo="VISA DÉBITO" valor={soma("visaDebito")} />
 
-      <Bloco titulo="VISA CRÉDITO" valor={soma("visaCredito")} />
+      <Linha titulo="ELO CRÉDITO" valor={soma("eloCredito")} />
+      <Linha titulo="MASTER CRÉDITO" valor={soma("masterCredito")} />
+      <Linha titulo="VISA CRÉDITO" valor={soma("visaCredito")} />
 
-      <Bloco titulo="MASTER DÉBITO" valor={soma("masterDebito")} />
+      <Linha titulo="AMEX" valor={soma("amex")} />
+      <Linha titulo="PIX" valor={soma("pix")} />
 
-      <Bloco titulo="MASTER CRÉDITO" valor={soma("masterCredito")} />
-
-      <Bloco titulo="ELO DÉBITO" valor={soma("eloDebito")} />
-
-      <Bloco titulo="ELO CRÉDITO" valor={soma("eloCredito")} />
-
-      <Bloco titulo="AMEX" valor={soma("amex")} />
-
-      <Bloco titulo="PIX" valor={soma("pix")} />
-
-      <Bloco titulo="PIX SICOOB" valor={valores.movimentacao.pixSicoob} />
-
-      <Bloco titulo="NOTAS" valor={valores.movimentacao.notas} />
-
-      <Bloco titulo="VALECARD" valor={valores.movimentacao.valeCard} />
-
-      <Bloco titulo="PUNTO" valor={valores.movimentacao.punto} />
-      
-      <Bloco titulo="TRANSFERÊNCIAS" valor={valores.movimentacao.transferencias} />
-
-      <Bloco titulo="CRÉDITO" valor={valores.movimentacao.credito} />
-
-      {/* <Bloco titulo="SANGRIAS" valor={valores.movimentacao.sangrias} /> */}
-
-      <Bloco titulo="DESPESAS" valor={valores.movimentacao.despesas} />
-
-      <Bloco titulo="VALES" valor={valores.movimentacao.vales} />
-
-      {/* <Bloco titulo="PRODUTOS" valor={valores.saidas.produtos} />
-
-      <Bloco titulo="COMBUSTÍVEL" valor={valores.saidas.combustivel} />
-
-      <Bloco titulo="CRÉDITOS" valor={valores.saidas.creditos} /> */}
+      <Linha titulo="NOTAS" valor={valores.movimentacao.notas} />
+      <Linha titulo="TRANSFERÊNCIA" valor={valores.movimentacao.transferencias} />
+      <Linha titulo="PIX SICOOB" valor={valores.movimentacao.pixSicoob} />
+      <Linha titulo="PUNTO" valor={valores.movimentacao.punto} />
+      <Linha titulo="VALECARD" valor={valores.movimentacao.valeCard} />
+      <Linha titulo="BAMEX" valor={valores.movimentacao.bamex} />
+      <Linha titulo="DESCONTO" valor={valores.movimentacao.desconto} />
+      <Linha titulo="DESPESAS" valor={valores.movimentacao.despesas} />
+      <Linha titulo="VALES" valor={valores.movimentacao.vales} />
+      <Linha titulo="CRÉDITO" valor={valores.movimentacao.credito} />
     </div>
   );
 }
